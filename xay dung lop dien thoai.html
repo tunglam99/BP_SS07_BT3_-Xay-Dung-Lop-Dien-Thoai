@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+let Mobile = function (battery, sentMessage, inbox, drafMessage, status) {
+    this.battery = battery;
+    this.sentMessage = sentMessage;
+    this.inbox = inbox;
+    this.drafMessage = drafMessage;
+    this.status = status;
+    this.battery = 100;
+
+   /* this.checkStatus = function () {
+        if (this.status) {
+            document.write("Pin: " + this.battery);
+        } else {
+            document.write("Dien thoai chua duoc bat");
+        }
+    };
+    this.turnOn = function () {
+        this.status = true;
+        this.battery --;
+    };
+    this.turnOff = function () {
+        this.status = false;
+        this.battery --;
+    };
+    this.chargeBattery = function () {
+        if (this.status) {
+            while (this.battery<100) {
+                this.battery++;
+            }
+        }
+    };*/
+    this.receiveMessage = function (message,mobile) {
+        if (this.status) {
+            this.inbox.push(message);
+            this.battery -=1;
+        } else {
+            alert("mobile is off");
+        }
+    };
+    this.sendMessage = function (message, mobile) {
+        if (this.status) {
+            this.sentMessage.push(message);
+            mobile.receiveMessage (message,this);
+            this.battery -=1;
+        } else {
+            alert("Mobile is off");
+        }
+    };
+    this.getInbox = function () {
+        if (this.status) {
+            this.battery -=1;
+            return this.inbox;
+        } else {
+            alert("mobile is off");
+        }
+    };
+    this.getSentMessage = function () {
+        if (this.status) {
+            this.battery -=1;
+            return this.sentMessage;
+        } else {
+            alert("mobile is off");
+        }
+    };
+    this.getStatus = function() {
+        return this.status;
+    };
+
+    let nokia = new Mobile(50,[],[],'', true);
+    let iphone = new Mobile(70,[],[],'',true);
+    let s = hello;
+    nokia.sendMessage(s,iphone);
+    document.write("Send message Nokia: "+ nokia.getSentMessage() + "<br>");
+    document.write("Inbox iphone: " + iphone.getInbox());
+
+}
+</script>
+</body>
+</html>
